@@ -13,12 +13,12 @@ contract WorkDone {
     
     struct User {
         string userName;
-        address userAddress;
         string info;
+        address userAddress;
         string email;
         bool emailConfirmed;
-        Donation[] donationsDone;
-        Donation[] donationsRecieved;
+        // Donation[] donationsRecieved;
+        // Donation[] donationsGiven;
     }
 
     mapping(address => User) public users;
@@ -33,17 +33,30 @@ contract WorkDone {
     
     function donate(address donateTo, uint amount, string memory message) public payable {
         msg.sender.transfer(msg.value);
-        users[donateTo].donationsRecieved.push(Donation({fromAddress: msg.sender, toAddress: donateTo, message: message, value: amount}));
+        // users[donateTo].donationsRecieved.push(Donation({fromAddress: msg.sender, toAddress: donateTo, message: message, value: amount}));
     }
     
     function updateProfile(string memory newUsername, string memory newInfo, string memory newEmail) public returns (string memory, string memory, string memory, address){
         users[msg.sender].userName = newUsername;
         users[msg.sender].info = newInfo;
         users[msg.sender].email = newEmail;
-        users[msg.sender].userAddress = msg.sender;
         return (newUsername, newInfo, newEmail, msg.sender);
     }
     
+    function createUser(string memory newUsername, string memory newInfo, string memory newEmail) public {
+        users[msg.sender] = User({
+            userName: newUsername,
+            email: newEmail,
+            info: newInfo,
+            userAddress: msg.sender,
+            emailConfirmed: false
+            // donationsRecieved: new Donation[](0),
+            // donationsGiven: new Donation[](0)
+        });
+    }
     
+    function getUserName() view public returns (string memory username) {
+        username = users[msg.sender].userName;
+    }
     
 }
