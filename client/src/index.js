@@ -4,14 +4,15 @@ import { Drizzle, generateStore } from 'drizzle';
 import StringStore from "./contracts/StringStore.json";
 import WorkDone from "./contracts/WorkDone.json";
 import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import SetString from './components/SetString.js';
 
 const options = { contracts: [StringStore, WorkDone] };
 
 const drizzleStore = generateStore(options);
 const drizzle = new Drizzle(options, drizzleStore);
-
 
 ReactDOM.render(<App drizzle={drizzle} />, document.getElementById('root'));
 

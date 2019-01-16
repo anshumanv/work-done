@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ReadString from './ReadString';
 import SetString from './SetString';
+
 
 class App extends Component {
   state = {
@@ -32,9 +34,15 @@ class App extends Component {
 
     return (
       <div className="App">
-        Drizzle Loaded!
-        <ReadString drizzle={drizzle} drizzleState={drizzleState} />
-        <SetString drizzle={drizzle} drizzleState={drizzleState} />
+        <Router>
+          <div>
+            <Route path="/" exact render={() =>  <ReadString drizzle={drizzle} drizzleState={drizzleState} />} />
+            <Route path="/edit" exact render={() => <SetString drizzle={drizzle} drizzleState={drizzleState} />} />
+          </div>
+        </Router>
+          Drizzle Loaded!
+          
+          
       </div>
     );
   }
