@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Dimmer, Loader, Grid } from 'semantic-ui-react'
 import UserCard from './UserCard'
 import UserForm from './UserForm'
+import SupportUser from './SupportUser'
 
 const styles = {
   profileRoot: {
@@ -62,7 +63,7 @@ export default class Profile extends Component {
               <UserCard user={user} />
             </Grid.Column>
             <Grid.Column width={5}>
-              support details
+              <SupportUser user={user} />
             </Grid.Column>
         </Grid>
       </div>
