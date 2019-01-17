@@ -33,7 +33,7 @@ const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
       as='h1'
-      content='Imagine-a-Company'
+      content='Work Done'
       inverted
       style={{
         fontSize: mobile ? '2em' : '4em',
@@ -44,7 +44,7 @@ const HomepageHeading = ({ mobile }) => (
     />
     <Header
       as='h2'
-      content='Do whatever you want when you want to.'
+      content='Support content creators on the internet in a decentralised way.'
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
@@ -53,7 +53,7 @@ const HomepageHeading = ({ mobile }) => (
       }}
     />
     <Button primary size='huge'>
-      Get Started
+      Go!
       <Icon name='right arrow' />
     </Button>
   </Container>
@@ -101,15 +101,12 @@ class DesktopContainer extends Component {
                 <Menu.Item as='a' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
+                <Menu.Item as='a'>Your Page</Menu.Item>
+                <Menu.Item as='a'>About</Menu.Item>
+                <Menu.Item as='a'>How it works</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' inverted={!fixed}>
-                    Log in
-                  </Button>
                   <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
-                    Sign Up
+                    Profile
                   </Button>
                 </Menu.Item>
               </Container>
@@ -217,18 +214,10 @@ const HomepageLayout = () => (
         <Grid.Row>
           <Grid.Column width={8}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              We Help Companies and Companions
+              About
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never thought possible.
-              Let us delight your customers and empower your needs... through pure data analytics.
-            </p>
-            <Header as='h3' style={{ fontSize: '2em' }}>
-              We Make Bananas That Can Dance
-            </Header>
-            <p style={{ fontSize: '1.33em' }}>
-              Yes that's right, you thought it was the stuff of dreams, but even bananas can be
-              bioengineered.
+              Work Done is a platform which is intended for people to recieve support for the work they're doing and sharing on the internet, the creator can just create their profile page and share it's link which can be used by people to provide support for the content they're creating and the hard work they're doing. 😝
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
@@ -237,7 +226,7 @@ const HomepageLayout = () => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign='center'>
-            <Button size='huge'>Check Them Out</Button>
+            <Button size='huge'>Woah! 💰</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -248,17 +237,16 @@ const HomepageLayout = () => (
         <Grid.Row textAlign='center'>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              "What a Company"
+              "Creators"
             </Header>
-            <p style={{ fontSize: '1.33em' }}>That is what they all say about us</p>
+            <p style={{ fontSize: '1.33em' }}>Create your dedicated profile page and generate a link which can be shared to recieve support.</p>
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
+              "Supporters"
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/images/avatar/large/nan.jpg' />
-              <b>Nan</b> Chief Fun Officer Acme Toys
+              Visit a profile you want to provide support to and then select the amount with which you wanna support and confirm the transaction! Get interesting badges and statistics for your contributions and get featured in the leaderboard.
             </p>
           </Grid.Column>
         </Grid.Row>
@@ -268,12 +256,10 @@ const HomepageLayout = () => (
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Container text>
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Breaking The Grid, Grabs Your Attention
+          Roadmap
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Instead of focusing on content creation and hard work, we have learned how to master the
-          art of doing nothing by providing massive amounts of whitespace and generic content that
-          can seem massive, monolithic and worth your attention.
+          Get things to work, share profile link, execute transactions
         </p>
         <Button as='a' size='large'>
           Read More
@@ -285,19 +271,17 @@ const HomepageLayout = () => (
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <a href='#'>Case Studies</a>
+          <a href='#'>Creator?</a>
         </Divider>
 
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Did We Tell You About Our Bananas?
+          Create your own page and start sharing!
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but
-          it's really true. It took years of gene splicing and combinatory DNA research, but our
-          bananas can really dance.
+          You can create your WD page and add it's links on your projects which people can use to support you.
         </p>
         <Button as='a' size='large'>
-          I'm Still Quite Interested
+          Yes! Create my page
         </Button>
       </Container>
     </Segment>
@@ -309,27 +293,18 @@ const HomepageLayout = () => (
             <Grid.Column width={3}>
               <Header inverted as='h4' content='About' />
               <List link inverted>
-                <List.Item as='a'>Sitemap</List.Item>
-                <List.Item as='a'>Contact Us</List.Item>
-                <List.Item as='a'>Religious Ceremonies</List.Item>
-                <List.Item as='a'>Gazebo Plans</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Header inverted as='h4' content='Services' />
-              <List link inverted>
-                <List.Item as='a'>Banana Pre-Order</List.Item>
-                <List.Item as='a'>DNA FAQ</List.Item>
-                <List.Item as='a'>How To Access</List.Item>
-                <List.Item as='a'>Favorite X-Men</List.Item>
+                <List.Item as='a'>How it works?</List.Item>
+                <List.Item as='a'>About</List.Item>
+                <List.Item as='a'>Create your page</List.Item>
+                <List.Item as='a'>Report an issue</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={7}>
               <Header as='h4' inverted>
-                Footer Header
+                Work Done
               </Header>
               <p>
-                Extra space for a call to action inside the footer that could help re-engage users.
+                Support content creators on the internet in a decentralised way and show off your contributions
               </p>
             </Grid.Column>
           </Grid.Row>
