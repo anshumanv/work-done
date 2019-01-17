@@ -1,23 +1,35 @@
-import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import UserCard from './UserCard'
 
-const CardExampleCard = () => (
-  <Card>
-    <Image src='https://avatars2.githubusercontent.com/u/21009455?s=400&v=4' />
-    <Card.Content>
-      <Card.Header>Anshuman</Card.Header>
-      <Card.Meta>
-        <span className='date'>Joined in 2015</span>
-      </Card.Meta>
-      <Card.Description>Anshuman is creating open source tools!</Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' />
-        22 Friends
-      </a>
-    </Card.Content>
-  </Card>
-)
+export default class Profile extends Component {
+  
+  state = {
+    user: null
+  }
 
-export default CardExampleCard
+  componentDidMount() {
+    const { drizzle, drizzleState } = this.props;
+    const contract = drizzle.contracts.WorkDone;
+
+    contract.methods.users(drizzleState.accounts[0]).call().then(res => {
+      const { userName, userAddress, email, info } = res;
+      this.setState({
+        user: {
+          userName,
+          userAddress,
+          email,
+          info,
+        }
+      })
+    })
+  }
+  
+  render() {
+    const { user } = this.state;
+    return (
+      <div>
+        <UserCard user={user} />
+      </div>
+    )
+  }
+}
