@@ -5,7 +5,15 @@ import Register from './Register';
 import Profile from './Profile';
 import SetString from './SetString';
 import Landing from './Landing';
+import MobileContainer from './MobileContainer'
+import DesktopContainer from './DesktopContainer'
 
+const ResponsiveContainer = ({ children }) => (
+  <div>
+    <DesktopContainer>{children}</DesktopContainer>
+    <MobileContainer>{children}</MobileContainer>
+  </div>
+)
 
 class App extends Component {
   state = {
@@ -40,15 +48,15 @@ class App extends Component {
         <Router>
           <div>
             <Route path="/" exact render={() =>  <Landing />} />
-            <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
-            <Route path="/profile" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
-            <Route path="/read" exact render={() =>  <ReadString drizzle={drizzle} drizzleState={drizzleState} />} />
-            <Route path="/edit" exact render={() => <SetString drizzle={drizzle} drizzleState={drizzleState} />} />
+            <ResponsiveContainer>
+              <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
+              <Route path="/profile" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
+              <Route path="/read" exact render={() =>  <ReadString drizzle={drizzle} drizzleState={drizzleState} />} />
+              <Route path="/edit" exact render={() => <SetString drizzle={drizzle} drizzleState={drizzleState} />} />
+
+            </ResponsiveContainer>
           </div>
         </Router>
-          Drizzle Loaded!
-          
-          
       </div>
     );
   }

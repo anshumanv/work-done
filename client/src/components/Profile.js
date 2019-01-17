@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader, Grid } from 'semantic-ui-react'
 import UserCard from './UserCard'
 import UserForm from './UserForm'
+
+const styles = {
+  profileRoot: {
+    marginTop: '2rem'
+  }
+}
 
 export default class Profile extends Component {
   
@@ -38,6 +44,7 @@ export default class Profile extends Component {
   render() {
     const { user, loading, registeredUser } = this.state;
     const { drizzle, drizzleState } = this.props;
+    const { profileRoot } = styles;
 
     if (loading) return (
       <Dimmer active>
@@ -50,7 +57,9 @@ export default class Profile extends Component {
     )
     return (
       <div>
-        <UserCard user={user} />
+        <Grid centered style={profileRoot} className="profile-root">
+          <UserCard user={user} />
+        </Grid>
       </div>
     )
   }
