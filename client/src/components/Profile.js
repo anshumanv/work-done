@@ -58,7 +58,12 @@ export default class Profile extends Component {
     return (
       <div>
         <Grid centered style={profileRoot} className="profile-root">
-          <UserCard user={user} />
+            <Grid.Column width={11}>
+              <UserCard user={user} />
+            </Grid.Column>
+            <Grid.Column width={5}>
+              support details
+            </Grid.Column>
         </Grid>
       </div>
     )

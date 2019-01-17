@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image, Grid, Header } from 'semantic-ui-react'
 
 export default class UserCard extends Component {
   render() {
@@ -7,26 +7,29 @@ export default class UserCard extends Component {
     if( !user ) return <div>Loading...</div>
     return (
       <div>
-        <Card>
-          <Image src='https://avatars2.githubusercontent.com/u/21009455?s=400&v=4' />
-          <Card.Content>
-            <Card.Header>{user.userName}</Card.Header>
-            <Card.Meta>
-              <span className='date'>Joined in 2015</span>
-            </Card.Meta>
-            <Card.Meta>
-              <span className='date'>{user.email}</span>
-              <span className='date'>{user.userAddress}</span>
-            </Card.Meta>
-            <Card.Description>{user.info}</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Icon name='user' />
-              22 Friends
-            </a>
-          </Card.Content>
-        </Card>
+        <Grid style={{paddingLeft: '3rem'}}>
+          <Grid.Column>
+          <Header as='h2'>
+            <Image src="https://avatars2.githubusercontent.com/u/21009455?s=300&v=4" style={{width: '8.5em'}} size='small' circular ></Image>
+            <Header.Content>
+              { user.userName }
+              <Header.Subheader>Developer</Header.Subheader>
+            </Header.Content>
+          </Header>
+          <Header as='h3'>
+            What I do
+            <Header.Subheader>{ user.info }</Header.Subheader>
+          </Header>
+          <Header as='h3'>
+            Address
+            <Header.Subheader>{ user.userAddress }</Header.Subheader>
+          </Header>
+          <Header as='h3'>
+            Email
+            <Header.Subheader>{ user.email }</Header.Subheader>
+          </Header>
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }
