@@ -17,7 +17,7 @@ export default class SupportUser extends Component {
     const { user } = this.props;
     return (
       <div>
-        <Grid>
+        <Grid style={{paddingRight: '3rem'}}>
           <Grid.Column>
         <Header as='h3'>
           Support { user.userName } 🎉

@@ -17,8 +17,8 @@ contract WorkDone {
         address userAddress;
         string email;
         bool emailConfirmed;
-        // Donation[] donationsRecieved;
-        // Donation[] donationsGiven;
+        uint donationsRecieved;
+        uint donationsGiven;
     }
 
     mapping(address => User) public users;
@@ -31,9 +31,11 @@ contract WorkDone {
         owner = msg.sender;
     }
     
-    function donate(address donateTo, uint amount, string memory message) public payable {
-        msg.sender.transfer(msg.value);
-        // users[donateTo].donationsRecieved.push(Donation({fromAddress: msg.sender, toAddress: donateTo, message: message, value: amount}));
+    function donate(address donateTo) public payable {
+        address payable targetAddress = address(uint160(donateTo));
+        targetAddress.transfer(msg.value);
+        users[donateTo].donationsRecieved += msg.value;
+        users[msg.sender].donationsGiven += msg.value;
     }
     
     function updateProfile(string memory newUsername, string memory newInfo, string memory newEmail) public returns (string memory, string memory, string memory, address){
@@ -49,9 +51,9 @@ contract WorkDone {
             email: newEmail,
             info: newInfo,
             userAddress: msg.sender,
-            emailConfirmed: false
-            // donationsRecieved: new Donation[](0),
-            // donationsGiven: new Donation[](0)
+            emailConfirmed: false,
+            donationsRecieved: 0,
+            donationsGiven: 0
         });
     }
     
