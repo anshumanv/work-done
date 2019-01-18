@@ -3,13 +3,35 @@ import { Header, Grid, Form, Input } from 'semantic-ui-react';
 
 export default class SupportUser extends Component {
   state = {
-    amount: 0
+    amount: 0,
+    stackId: null,
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   sendTransaction = () => {
     console.log('lel')
+    const { drizzle, drizzleState, user: {userAddress } } = this.props;
+    const { amount } = this.state;
+    const contract = drizzle.contracts.WorkDone;
+
+    const stackId = contract.methods.donate.cacheSend(userAddress, {
+      from: drizzleState.accounts[0],
+      value: amount
+    })
+
+    this.setState({ stackId });
+  }
+
+  getTxStatus = () => {
+    const { stackId } = this.state;
+    const { transactions, transactionStack } = this.props.drizzleState;
+
+    const txHash = transactionStack[stackId];
+
+    if(!txHash) return null;
+
+    return `Transaction status: ${transactions[txHash].status}`; 
   }
 
   render() {
@@ -30,6 +52,7 @@ export default class SupportUser extends Component {
           </Form.Field>
           <Form.Button content='💲 Support' type='submit' />
         </Form>
+        <div>{this.getTxStatus()}</div>
         </Grid.Column>
         </Grid>
       </div>

@@ -28,6 +28,14 @@ export default class UserCard extends Component {
             Email
             <Header.Subheader>{ user.email }</Header.Subheader>
           </Header>
+          <Header as='h3'>
+            Support Recieved
+            <Header.Subheader>{ user.donationsRecieved }</Header.Subheader>
+          </Header>
+          <Header as='h3'>
+            Support Given
+            <Header.Subheader>{ user.donationsGiven }</Header.Subheader>
+          </Header>
           </Grid.Column>
         </Grid>
       </div>

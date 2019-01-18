@@ -23,7 +23,7 @@ export default class Profile extends Component {
     const contract = drizzle.contracts.WorkDone;
 
     contract.methods.users(drizzleState.accounts[0]).call().then(res => {
-      const { userName, userAddress, email, info } = res;
+      const { userName, userAddress, email, info, donationsGiven, donationsRecieved } = res;
       console.log(res)
       if (!res.email) {
         return this.setState({
@@ -37,6 +37,8 @@ export default class Profile extends Component {
           userAddress,
           email,
           info,
+          donationsGiven,
+          donationsRecieved
         }, loading: false, registeredUser: true
       })
     })
@@ -63,7 +65,7 @@ export default class Profile extends Component {
               <UserCard user={user} />
             </Grid.Column>
             <Grid.Column width={5}>
-              <SupportUser user={user} />
+              <SupportUser drizzle={drizzle} drizzleState={drizzleState} user={user} />
             </Grid.Column>
         </Grid>
       </div>
