@@ -65,7 +65,7 @@ export default class DesktopContainer extends Component {
                     Profile
                   </Button>
                 </Menu.Item>
-            <   Popup trigger={<Button icon='user' />} content={`Your address - ${address}`} position='bottom center' inverted />
+                <Popup trigger={<Button icon='user' />} verticalOffset={20} content={`Your address - ${address}`} position='bottom center' inverted />
               </Container>
             </Menu>
           </Segment>

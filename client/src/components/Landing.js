@@ -13,6 +13,7 @@ import {
   Menu,
   Responsive,
   Segment,
+  Popup,
   Sidebar,
   Visibility,
 } from 'semantic-ui-react'
@@ -68,16 +69,16 @@ HomepageHeading.propTypes = {
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
  */
-class DesktopContainer extends Component {
+class DesktopLanding extends Component {
   state = {}
 
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
 
   render() {
-    const { children } = this.props
+    const { children, drizzle, drizzleState } = this.props
     const { fixed } = this.state
-
+    const address = drizzleState.accounts[0]
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -99,17 +100,17 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as='a' active>
+                <Menu.Item as={ Link } to='/' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as='a'>Your Page</Menu.Item>
-                <Menu.Item as='a'>About</Menu.Item>
-                <Menu.Item as='a'>How it works</Menu.Item>
+                <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+                <Menu.Item as={ Link } to='/about'>About</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as={ Link } to='profile' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  <Button as={ Link } to={`/u/${address}`} inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Profile
                   </Button>
                 </Menu.Item>
+                <Popup trigger={<Button icon='user' />} verticalOffset={20} content={`Your address - ${address}`} position='bottom center' inverted />
               </Container>
             </Menu>
             <HomepageHeading />
@@ -122,11 +123,11 @@ class DesktopContainer extends Component {
   }
 }
 
-DesktopContainer.propTypes = {
+DesktopLanding.propTypes = {
   children: PropTypes.node,
 }
 
-class MobileContainer extends Component {
+class MobileLanding extends Component {
   state = {}
 
   handleSidebarHide = () => this.setState({ sidebarOpened: false })
@@ -188,14 +189,14 @@ class MobileContainer extends Component {
   }
 }
 
-MobileContainer.propTypes = {
+MobileLanding.propTypes = {
   children: PropTypes.node,
 }
 
-const ResponsiveContainer = ({ children }) => (
+const ResponsiveContainer = ({ children, drizzle, drizzleState }) => (
   <div>
-    <DesktopContainer>{children}</DesktopContainer>
-    <MobileContainer>{children}</MobileContainer>
+    <DesktopLanding drizzle={drizzle} drizzleState={drizzleState}>{children}</DesktopLanding>
+    <MobileLanding drizzle={drizzle} drizzleState={drizzleState}>{children}</MobileLanding>
   </div>
 )
 
@@ -203,8 +204,8 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node,
 }
 
-const HomepageLayout = () => (
-  <ResponsiveContainer>
+const Landing = ({ drizzle, drizzleState }) => (
+  <ResponsiveContainer drizzle={drizzle} drizzleState={drizzleState}>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign='middle'>
         <Grid.Row>
@@ -310,4 +311,4 @@ const HomepageLayout = () => (
   </ResponsiveContainer>
 )
 
-export default HomepageLayout
+export default Landing

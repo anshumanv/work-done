@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import { Form } from 'semantic-ui-react'
 
+const styles = {
+  formStyles: {
+    width: '75%',
+    maxWidth: '600px'
+  }
+}
+
 class UserForm extends Component {
   state = { name: '', email: '', info: '', userName: '', stackId: null }
 
@@ -38,35 +45,37 @@ class UserForm extends Component {
     const { name, email, info, userName } = this.state
 
     return (
-      <div>
+      <div style={styles.formStyles}>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
-            <Form.Input
-              placeholder='Name'
-              name='name'
-              value={name}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              placeholder='Email'
-              name='email'
-              value={email}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              placeholder='Info'
-              name='info'
-              value={info}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              placeholder='User Name'
-              name='userName'
-              value={userName}
-              onChange={this.handleChange}
-            />
-            <Form.Button content='Submit' />
-          </Form.Group>
+          <Form.Input
+            placeholder='Name'
+            name='name'
+            value={name}
+            label="Name"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder='Email'
+            name='email'
+            value={email}
+            label="Email"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder='Info'
+            name='info'
+            value={info}
+            label="What you do"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder='User Name'
+            name='userName'
+            value={userName}
+            label="Username"
+            onChange={this.handleChange}
+          />
+          <Form.Button content='Submit' />
         </Form>
         <strong>onChange:</strong>
         <pre>{JSON.stringify({ name, email, info, userName }, null, 2)}</pre>

@@ -48,7 +48,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route path="/" exact render={() =>  <Landing />} />
+            <Route path="/" exact render={() =>  <Landing drizzle={drizzle} drizzleState={drizzleState} />} />
             <ResponsiveContainer drizzle={drizzle} drizzleState={drizzleState}>
             <Switch>
               <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
