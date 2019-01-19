@@ -12,6 +12,7 @@ import {
   Responsive,
   Segment,
   Sidebar,
+  Popup,
   Visibility,
 } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
@@ -30,9 +31,9 @@ export default class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true })
 
   render() {
-    const { children } = this.props
+    const { children, drizzle, drizzleState } = this.props
     const { fixed } = this.state
-
+    const address = drizzleState.accounts[0]
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -54,19 +55,19 @@ export default class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as='a' href='/' active>
+                <Menu.Item as={ Link } to='/' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as='a' href="/profile">Your Page</Menu.Item>
-                <Menu.Item as='a' href='/about'>About</Menu.Item>
+                <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+                <Menu.Item as={ Link } to='/about'>About</Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as={ Link } to='profile' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  <Button as={ Link } to={`/u/${address}`} inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Profile
                   </Button>
                 </Menu.Item>
+            <   Popup trigger={<Button icon='user' />} content={`Your address - ${address}`} position='bottom center' inverted />
               </Container>
             </Menu>
-            
           </Segment>
         </Visibility>
 

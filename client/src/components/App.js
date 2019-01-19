@@ -9,10 +9,10 @@ import MobileContainer from './MobileContainer'
 import DesktopContainer from './DesktopContainer'
 import NotFound from './NotFound';
 
-const ResponsiveContainer = ({ children }) => (
+const ResponsiveContainer = ({ drizzle, drizzleState, children }) => (
   <div>
-    <DesktopContainer>{children}</DesktopContainer>
-    <MobileContainer>{children}</MobileContainer>
+    <DesktopContainer drizzle={drizzle} drizzleState={drizzleState}>{children}</DesktopContainer>
+    <MobileContainer drizzle={drizzle} drizzleState={drizzleState}>{children}</MobileContainer>
   </div>
 )
 
@@ -49,7 +49,7 @@ class App extends Component {
         <Router>
           <div>
             <Route path="/" exact render={() =>  <Landing />} />
-            <ResponsiveContainer>
+            <ResponsiveContainer drizzle={drizzle} drizzleState={drizzleState}>
             <Switch>
               <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
               <Route path="/u/:userAddress" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
