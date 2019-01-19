@@ -48,16 +48,18 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route path="/" exact render={() =>  <Landing drizzle={drizzle} drizzleState={drizzleState} />} />
-            <ResponsiveContainer drizzle={drizzle} drizzleState={drizzleState}>
             <Switch>
-              <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
-              <Route path="/u/:userAddress" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
-              <Route path="/read" exact render={() =>  <ReadString drizzle={drizzle} drizzleState={drizzleState} />} />
-              <Route path="/edit" exact render={() => <SetString drizzle={drizzle} drizzleState={drizzleState} />} />
-              <Route component={NotFound} />
+              <Route path="/" exact render={() =>  <Landing drizzle={drizzle} drizzleState={drizzleState} />} />
+              <ResponsiveContainer drizzle={drizzle} drizzleState={drizzleState}>
+              <Switch>
+                <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
+                <Route path="/u/:userAddress" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
+                <Route path="/read" exact render={() =>  <ReadString drizzle={drizzle} drizzleState={drizzleState} />} />
+                <Route path="/edit" exact render={() => <SetString drizzle={drizzle} drizzleState={drizzleState} />} />
+                <Route component={NotFound} />
+              </Switch>
+              </ResponsiveContainer>
             </Switch>
-            </ResponsiveContainer>
           </div>
         </Router>
       </div>
