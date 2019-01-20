@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { drizzleConnect } from 'drizzle-react'
 import UserForm from './UserForm'
 
 const styles = {
@@ -9,7 +10,7 @@ const styles = {
   }
 }
 
-export default class Register extends Component {
+class Register extends Component {
   render() {
     const { drizzle, drizzleState } = this.props;
     return (
@@ -19,3 +20,12 @@ export default class Register extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    drizzleState: state,
+    WorkDone: state.contracts.WorkDone
+  }
+}
+
+export default drizzleConnect(Register, mapStateToProps)

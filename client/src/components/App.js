@@ -52,8 +52,9 @@ class App extends Component {
               <Route path="/" exact render={() =>  <Landing drizzle={drizzle} drizzleState={drizzleState} />} />
               <ResponsiveContainer drizzle={drizzle} drizzleState={drizzleState}>
               <Switch>
-                <Route path="/register" exact render={() =>  <Register drizzle={drizzle} drizzleState={drizzleState} />} />
+                <Route path="/register" exact render={() =>  <Register />} />
                 <Route path="/u/:userAddress" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
+                <Route path="/profile" exact render={() =>  <Profile drizzle={drizzle} drizzleState={drizzleState} />} />
                 <Route path="/read" exact render={() =>  <ReadString drizzle={drizzle} drizzleState={drizzleState} />} />
                 <Route path="/edit" exact render={() => <SetString drizzle={drizzle} drizzleState={drizzleState} />} />
                 <Route component={NotFound} />

@@ -135,8 +135,9 @@ class MobileLanding extends Component {
   handleToggle = () => this.setState({ sidebarOpened: true })
 
   render() {
-    const { children } = this.props
     const { sidebarOpened } = this.state
+    const { children, drizzleState } = this.props
+    const address = drizzleState.accounts[0]
 
     return (
       <Responsive
@@ -152,12 +153,11 @@ class MobileLanding extends Component {
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item as='a' active>
+          <Menu.Item as={ Link } to='/' active>
             Home
           </Menu.Item>
-          <Menu.Item as='a'>Your Page</Menu.Item>
-          <Menu.Item as='a'>About</Menu.Item>
-          <Menu.Item as='a'>How it works</Menu.Item>
+          <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+          <Menu.Item as={ Link } to='/about'>About</Menu.Item>
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -173,7 +173,7 @@ class MobileLanding extends Component {
                   <Icon name='sidebar' />
                 </Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' inverted>
+                <Button as={ Link } to={`/u/${address}`} inverted style={{ marginLeft: '0.5em' }}>
                     Profile
                   </Button>
                 </Menu.Item>

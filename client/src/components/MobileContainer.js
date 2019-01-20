@@ -31,8 +31,9 @@ export default class MobileContainer extends Component {
   handleToggle = () => this.setState({ sidebarOpened: true })
 
   render() {
-    const { children } = this.props
+    const { children, drizzle, drizzleState } = this.props
     const { sidebarOpened } = this.state
+    const address = drizzleState.accounts[0]
 
     return (
       <Responsive
@@ -48,12 +49,11 @@ export default class MobileContainer extends Component {
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item as='a' active>
+          <Menu.Item as={ Link } to='/' active>
             Home
           </Menu.Item>
-          <Menu.Item as='a'>Your Page</Menu.Item>
-          <Menu.Item as='a'>About</Menu.Item>
-          <Menu.Item as='a'>How it works</Menu.Item>
+          <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+          <Menu.Item as={ Link } to='/about'>About</Menu.Item>
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -69,7 +69,7 @@ export default class MobileContainer extends Component {
                   <Icon name='sidebar' />
                 </Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as={ Link } to='profile' inverted>
+                  <Button as={ Link } to={`/u/${address}`} inverted style={{ marginLeft: '0.5em' }}>
                     Profile
                   </Button>
                 </Menu.Item>
