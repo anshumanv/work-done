@@ -16,9 +16,7 @@ const drizzleStore = generateStore(options);
 const drizzle = new Drizzle(options, drizzleStore);
 
 ReactDOM.render(
-  <DrizzleProvider options={options}>
-    <App drizzle={drizzle} />
-  </DrizzleProvider>,
+    <App drizzle={drizzle} />,
   document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

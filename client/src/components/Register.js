@@ -6,7 +6,8 @@ const styles = {
   formRoot: {
     margin: '2rem',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '100vh'
   }
 }
 
@@ -28,4 +29,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default drizzleConnect(Register, mapStateToProps)
+export default Register
