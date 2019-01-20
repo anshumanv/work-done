@@ -22,7 +22,12 @@ export default class Profile extends Component {
   componentDidMount() {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.WorkDone;
-    const profileAddress = window.location.href.split('/')[4]
+    let profileAddress
+    if(this.props.profile) {
+      profileAddress = drizzleState.accounts[0]
+    } else {
+      profileAddress = window.location.href.split('/')[4]
+    }
     console.log(profileAddress)
     try {
       contract.methods.users(profileAddress).call().then(res => {
@@ -52,6 +57,7 @@ export default class Profile extends Component {
         registeredUser: false,
         loading: false
       })
+      // window.location.pathname = '/register'
     }
   }
   
