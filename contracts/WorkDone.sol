@@ -5,6 +5,9 @@ contract WorkDone {
     
     // Contract owner
     address owner;
+
+    // Freezing state of the contract
+    bool public frozen = false;
     
     // Structs
     struct Donation {
@@ -30,17 +33,26 @@ contract WorkDone {
     mapping(address => bool) public registered;
 
     // Function Modifiers
+    // Modifier to check that the user is the owner
     modifier isOwner() { require(msg.sender == owner); _; }
 
+    // Modifier to check if an address is registered
     modifier isRegistered(address _address) { require(registered[_address]); _; }
 
+    // Modifier to verify caller with a given address
     modifier verifyCaller (address _address) { require (msg.sender == _address); _;}
+
+    // Modifiers in emergency
+    modifier stopInEmergency { require(!frozen); _; }
+    modifier onlyInEmergency { require(frozen); _; }
+
 
     // Events
     event userCreated(address _address);
     event userUpdated(address _address);
     event userDeleted(address _address);
     event donationDone(address from, address to, uint amount);
+    event toggleFreeze();
 
     // Constructor
     constructor () public {
@@ -51,7 +63,7 @@ contract WorkDone {
     /** @dev A function to donate a user
       * @param donateTo Address of the user to donate to.
       */
-    function donate(address donateTo) public payable {
+    function donate(address donateTo) stopInEmergency public payable {
         // Check that the user is registered
         require(registered[donateTo], 'User that you\'re trying to support isn\'t registered');
 
@@ -74,7 +86,17 @@ contract WorkDone {
       * @param newInfo Updated information about the user.
       * @param newEmail Updated email of the user..
       */
-    function updateProfile(string memory newUsername, string memory newInfo, string memory newEmail) public isRegistered(msg.sender) returns (string memory, string memory, string memory, address){
+    function updateProfile(string memory newUsername,
+        string memory newInfo,
+        string memory newEmail)
+        stopInEmergency
+        isRegistered(msg.sender)
+        public
+        returns (string memory,
+        string memory,
+        string memory,
+        address){
+        
         // Update the user details after checking that the user exists
         users[msg.sender].userName = newUsername;
         users[msg.sender].info = newInfo;
@@ -92,7 +114,7 @@ contract WorkDone {
       * @param newInfo Information/Description about the user.
       * @param newEmail Email of the user.
       */
-    function createUser(string memory newUsername, string memory newInfo, string memory newEmail) public {
+    function createUser(string memory newUsername, string memory newInfo, string memory newEmail) stopInEmergency public {
         // Check that the user doesn't exist already 
         require(!registered[msg.sender], 'User is already registered');
 
@@ -117,7 +139,7 @@ contract WorkDone {
     /** @dev A function to delete a user, can only be performed by the contract owner
       * @param target address of the user to be deleted.
       */
-    function deleteUser(address target) public isOwner() {
+    function deleteUser(address target) public isOwner {
         // Check if the user is registered
         require(registered[target], 'User is not registered');
 
@@ -134,6 +156,13 @@ contract WorkDone {
     function getUserName() view public isRegistered(msg.sender) returns (string memory username) {
         // Return the username simply
         username = users[msg.sender].userName;
+    }
+
+    // A function to flip the emergency status of this contract, useful when a bug is detected
+    function flipFreeze() private isOwner {
+        if(frozen) {
+            frozen = false;
+        } else frozen = true;
     }
     
 }
