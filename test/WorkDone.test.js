@@ -58,5 +58,19 @@ contract('WorkDone', accounts => {
   });
 
 
+  // A test to check if a user with an address exists or not
+  it('should check if a user of an address exists or not', async () => {
+    const workDone = await WorkDone.deployed()
+
+    let userExists = await workDone.registered(user2, { from: user2 })
+    console.log(userExists)
+    assert.equal(userExists, false, 'User should not exist')
+
+    await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user2});
+    userExists = await workDone.registered(user2, { from: user2 })
+    console.log(userExists)
+    assert.equal(userExists, true, 'User should exist')
+
+  })
 
 })

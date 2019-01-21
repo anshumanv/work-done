@@ -23,6 +23,8 @@ contract WorkDone {
 
     mapping(address => User) public users;
 
+    mapping(address => bool) public registered;
+
     modifier isOwner() { require(msg.sender == owner); _; }
 
     modifier verifyCaller (address _address) { require (msg.sender == _address); _;}
@@ -55,6 +57,7 @@ contract WorkDone {
             donationsRecieved: 0,
             donationsGiven: 0
         });
+        registered[msg.sender] = true;
     }
     
     function getUserName() view public returns (string memory username) {
