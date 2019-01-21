@@ -62,8 +62,9 @@ contract WorkDone {
 
     /** @dev A function to donate a user
       * @param donateTo Address of the user to donate to.
+      * @return status Whether the donation was successful.
       */
-    function donate(address donateTo) stopInEmergency public payable {
+    function donate(address donateTo) stopInEmergency public payable returns(bool status) {
         // Check that the user is registered
         require(registered[donateTo], 'User that you\'re trying to support isn\'t registered');
 
@@ -79,12 +80,15 @@ contract WorkDone {
 
         // Emit the donation event
         emit donationDone(donateTo, msg.sender, msg.value);
+
+        return status;
     }
     
     /** @dev Update profile of a registered user
       * @param newUsername Username to be changed to.
       * @param newInfo Updated information about the user.
-      * @param newEmail Updated email of the user..
+      * @param newEmail Updated email of the user.
+      * @return status Whether the profile was updated.
       */
     function updateProfile(string memory newUsername,
         string memory newInfo,
@@ -92,10 +96,7 @@ contract WorkDone {
         stopInEmergency
         isRegistered(msg.sender)
         public
-        returns (string memory,
-        string memory,
-        string memory,
-        address){
+        returns (bool status){
         
         // Update the user details after checking that the user exists
         users[msg.sender].userName = newUsername;
@@ -104,17 +105,21 @@ contract WorkDone {
 
         // Emit the updated event
         emit userUpdated(msg.sender);
-
-        // Return the updated details
-        return (newUsername, newInfo, newEmail, msg.sender);
+        
+        return true;
     }
     
     /** @dev Creates a new user.
       * @param newUsername Username of the user.
       * @param newInfo Information/Description about the user.
       * @param newEmail Email of the user.
+      * @return status Whether the user was created.
       */
-    function createUser(string memory newUsername, string memory newInfo, string memory newEmail) stopInEmergency public {
+    function createUser(string memory newUsername,
+                        string memory newInfo,
+                        string memory newEmail)
+                        stopInEmergency public returns (bool status) {
+        
         // Check that the user doesn't exist already 
         require(!registered[msg.sender], 'User is already registered');
 
@@ -134,12 +139,15 @@ contract WorkDone {
 
         // Emit the User created event
         emit userCreated(msg.sender);
+
+        return true;
     }
 
     /** @dev A function to delete a user, can only be performed by the contract owner
       * @param target address of the user to be deleted.
+      * @return status Whether the user was deleted.
       */
-    function deleteUser(address target) public isOwner {
+    function deleteUser(address target) public isOwner returns(bool status) {
         // Check if the user is registered
         require(registered[target], 'User is not registered');
 
@@ -148,21 +156,27 @@ contract WorkDone {
         registered[target] = false;
 
         // Emit the user deleted event
-        emit userDeleted(msg.sender);
+        emit userDeleted(target);
+
+        return true;
     }
 
     /** @dev A function to get username of a registered user
+      * @return username Username of the queried user address.
       */
     function getUserName() view public isRegistered(msg.sender) returns (string memory username) {
         // Return the username simply
         username = users[msg.sender].userName;
     }
 
-    // A function to flip the emergency status of this contract, useful when a bug is detected
-    function flipFreeze() private isOwner {
+    /** @dev A function to flip the emergency status of this contract, useful when a bug is detected
+      * @return status Whether the frozen status was successfully split.
+      */
+    function flipFreeze() private isOwner returns(bool success) {
         if(frozen) {
             frozen = false;
         } else frozen = true;
+        return true;
     }
     
 }

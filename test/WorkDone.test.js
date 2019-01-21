@@ -100,7 +100,7 @@ contract('WorkDone', accounts => {
   })
 
   // A test for contract owner to be able to delete a user, would test the profile deletion workflow in case a user wants to delete their profile
-  it('owner should delete a user', async () => {
+  it('should delete a user', async () => {
     // Get the contract instance
     const workDone = await WorkDone.deployed()
 
