@@ -27,6 +27,8 @@ contract WorkDone {
 
     modifier isOwner() { require(msg.sender == owner); _; }
 
+    modifier isRegistered(address _address) { require(registered[_address]); _; }
+
     modifier verifyCaller (address _address) { require (msg.sender == _address); _;}
     
     constructor() public {
@@ -40,7 +42,7 @@ contract WorkDone {
         users[msg.sender].donationsGiven += msg.value;
     }
     
-    function updateProfile(string memory newUsername, string memory newInfo, string memory newEmail) public returns (string memory, string memory, string memory, address){
+    function updateProfile(string memory newUsername, string memory newInfo, string memory newEmail) public isRegistered(msg.sender) returns (string memory, string memory, string memory, address){
         users[msg.sender].userName = newUsername;
         users[msg.sender].info = newInfo;
         users[msg.sender].email = newEmail;
@@ -48,6 +50,7 @@ contract WorkDone {
     }
     
     function createUser(string memory newUsername, string memory newInfo, string memory newEmail) public {
+        require(!registered[msg.sender]);
         users[msg.sender] = User({
             userName: newUsername,
             email: newEmail,
@@ -58,6 +61,11 @@ contract WorkDone {
             donationsGiven: 0
         });
         registered[msg.sender] = true;
+    }
+
+    function deleteUser(address target) public isOwner() {
+        delete users[target];
+        registered[target] = false;
     }
     
     function getUserName() view public returns (string memory username) {

@@ -3,8 +3,10 @@ const WorkDone = artifacts.require("./WorkDone.sol")
 
 contract('WorkDone', accounts => {
   
-  const user1 = accounts[0]
-  const user2 = accounts[1]
+  const owner = accounts[0]
+  const user1 = accounts[1]
+  const user2 = accounts[2]
+  const testUser = accounts[3]
   
   // A test to create a user
   it('should create a user', async () => {
@@ -13,6 +15,7 @@ contract('WorkDone', accounts => {
 
     // Call the createUser function to save the user info in the blockchain
     await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user1});
+    await workDone.createUser('user2', 'I read manga', 'user2@user2.com', {from: user2});
 
     // Get the created user
     const userData = await workDone.users.call(user1)
@@ -35,9 +38,6 @@ contract('WorkDone', accounts => {
   it('should update the profile of a user', async () => {
     // Instance of the deployed contract
     const workDone = await WorkDone.deployed()
-    
-    // Create a user to be updated later
-    await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user1});
 
     // Call the update profile function to update the info of the user
     await workDone.updateProfile('natsu', 'I read manga', 'anime@cool.com', { from: user1 })
@@ -64,14 +64,11 @@ contract('WorkDone', accounts => {
     const workDone = await WorkDone.deployed()
 
     // Initially the user doesn't exist
-    let userExists = await workDone.registered(user2, { from: user2 })
+    let userExists = await workDone.registered(testUser, { from: testUser })
 
     // Assertion to check that a user doesn't exist
     assert.equal(userExists, false, 'User should not exist')
-
-    // Create a user now
-    await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user2});
-    
+     
     // User should exists now
     userExists = await workDone.registered(user2, { from: user2 })
     
@@ -84,11 +81,6 @@ contract('WorkDone', accounts => {
     // Get instance of the deployed contract
     const workDone = await WorkDone.deployed()
 
-    // Create two users for sender and reciever
-    await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user1});
-    await workDone.createUser('user2', 'I read manga', 'user2@user2.com', {from: user2});
-
-    
     // user1 is generous and like the work from user2 and hence decides to donate
     await workDone.donate(user2, {
       from: user1,
@@ -104,6 +96,19 @@ contract('WorkDone', accounts => {
     assert.equal(userData2.donationsRecieved.toString(), '1000000', 'User did not recieve the correct amount')
     assert.equal(userData1.donationsGiven.toString(), '1000000', 'Amount in donation given is not correct')
 
+  })
+
+  // A test for contract owner to be able to delete a user
+  it('owner should delete a user', async () => {
+    // Get the contract instance
+    const workDone = await WorkDone.deployed()
+
+    // Delete user2
+    await workDone.deleteUser(user2, { from: owner })
+
+    // User should no longer be registered
+    const userExists = await workDone.registered(user2)
+    assert.equal(userExists, false, 'Failed to delete the user!')
   })
 
 })
