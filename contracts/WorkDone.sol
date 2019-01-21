@@ -1,10 +1,9 @@
 pragma solidity >=0.4.22 <0.6.0;
 
+import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
+
 /** @title Work Done. */
-contract WorkDone {
-    
-    // Contract owner
-    address owner;
+contract WorkDone is Ownable {
 
     // Freezing state of the contract
     bool public frozen = false;
@@ -33,8 +32,6 @@ contract WorkDone {
     mapping(address => bool) public registered;
 
     // Function Modifiers
-    // Modifier to check that the user is the owner
-    modifier isOwner() { require(msg.sender == owner); _; }
 
     // Modifier to check if an address is registered
     modifier isRegistered(address _address) { require(registered[_address]); _; }
@@ -56,7 +53,7 @@ contract WorkDone {
 
     // Constructor
     constructor () public {
-        owner = msg.sender;
+        createUser('owner', 'Owner of this DApp', 'owner@owner.com');
     }
     
 
@@ -147,7 +144,7 @@ contract WorkDone {
       * @param target address of the user to be deleted.
       * @return status Whether the user was deleted.
       */
-    function deleteUser(address target) public isOwner returns(bool status) {
+    function deleteUser(address target) public onlyOwner returns(bool status) {
         // Check if the user is registered
         require(registered[target], 'User is not registered');
 
@@ -172,7 +169,7 @@ contract WorkDone {
     /** @dev A function to flip the emergency status of this contract, useful when a bug is detected
       * @return status Whether the frozen status was successfully split.
       */
-    function flipFreeze() private isOwner returns(bool success) {
+    function flipFreeze() private onlyOwner returns(bool success) {
         if(frozen) {
             frozen = false;
         } else frozen = true;
