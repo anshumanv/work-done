@@ -8,7 +8,7 @@ contract('WorkDone', accounts => {
   const user2 = accounts[2]
   const testUser = accounts[3]
   
-  // A test to create a user
+  // A test to create a user, this contract would test if user is able to register successfully
   it('should create a user', async () => {
     // Instance of the deployed contract
     const workDone = await WorkDone.deployed()
@@ -34,7 +34,7 @@ contract('WorkDone', accounts => {
     assert.equal(0, donationsGiven, 'Donation given by the created user is incorrect')
   });
 
-  // A test to donate some amount to a user
+  // A test to donate some amount to a user, would test the donation workflow
   it('should update the profile of a user', async () => {
     // Instance of the deployed contract
     const workDone = await WorkDone.deployed()
@@ -58,7 +58,7 @@ contract('WorkDone', accounts => {
   });
 
 
-  // A test to check if a user with an address exists or not
+  // A test to check if a user with an address exists or not, would be needed to check if a user is registered
   it('should check if a user of an address exists or not', async () => {
     // Get instance of deployed contract
     const workDone = await WorkDone.deployed()
@@ -77,6 +77,7 @@ contract('WorkDone', accounts => {
 
   });
 
+  // Test to check the donation workflow, this test is primary to the DApp and will be testing the donation workflow
   it('should donate correct amount to a user' , async () => {
     // Get instance of the deployed contract
     const workDone = await WorkDone.deployed()
@@ -98,7 +99,7 @@ contract('WorkDone', accounts => {
 
   })
 
-  // A test for contract owner to be able to delete a user
+  // A test for contract owner to be able to delete a user, would test the profile deletion workflow in case a user wants to delete their profile
   it('owner should delete a user', async () => {
     // Get the contract instance
     const workDone = await WorkDone.deployed()
