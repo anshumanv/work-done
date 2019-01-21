@@ -60,16 +60,49 @@ contract('WorkDone', accounts => {
 
   // A test to check if a user with an address exists or not
   it('should check if a user of an address exists or not', async () => {
+    // Get instance of deployed contract
     const workDone = await WorkDone.deployed()
 
+    // Initially the user doesn't exist
     let userExists = await workDone.registered(user2, { from: user2 })
-    console.log(userExists)
+
+    // Assertion to check that a user doesn't exist
     assert.equal(userExists, false, 'User should not exist')
 
+    // Create a user now
     await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user2});
+    
+    // User should exists now
     userExists = await workDone.registered(user2, { from: user2 })
-    console.log(userExists)
+    
+    // Assertion to check that user exists now
     assert.equal(userExists, true, 'User should exist')
+
+  });
+
+  it('should donate correct amount to a user' , async () => {
+    // Get instance of the deployed contract
+    const workDone = await WorkDone.deployed()
+
+    // Create two users for sender and reciever
+    await workDone.createUser('user1', 'I watch anime', 'user1@user1.com', {from: user1});
+    await workDone.createUser('user2', 'I read manga', 'user2@user2.com', {from: user2});
+
+    
+    // user1 is generous and like the work from user2 and hence decides to donate
+    await workDone.donate(user2, {
+      from: user1,
+      value: 1000000
+    })
+
+    // Get the created user
+    const userData1 = await workDone.users.call(user1) 
+    const userData2 = await workDone.users.call(user2) 
+
+
+    // Check if the amount sent is recieved by the target
+    assert.equal(userData2.donationsRecieved.toString(), '1000000', 'User did not recieve the correct amount')
+    assert.equal(userData1.donationsGiven.toString(), '1000000', 'Amount in donation given is not correct')
 
   })
 
