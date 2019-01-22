@@ -1,6 +1,7 @@
 pragma solidity >=0.4.22 <0.6.0;
 
-import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
+import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 /** @title Work Done. */
 contract WorkDone is Ownable {
@@ -31,6 +32,8 @@ contract WorkDone is Ownable {
 
     mapping(address => bool) public registered;
 
+    mapping(address => uint) private balances;
+
     // Function Modifiers
 
     // Modifier to check if an address is registered
@@ -59,21 +62,21 @@ contract WorkDone is Ownable {
 
     /** @dev A function to donate a user
       * @param donateTo Address of the user to donate to.
-      * @return status Whether the donation was successful.
+      * @return status Whether the donation was successful and user balance is updated.
       */
-    function donate(address donateTo) stopInEmergency public payable returns(bool status) {
+    function donate(address donateTo) public payable stopInEmergency returns(bool status) {
         // Check that the user is registered
-        require(registered[donateTo], 'User that you\'re trying to support isn\'t registered');
+        require(registered[donateTo], "User that you\'re trying to support isn\'t registered");
+        require(msg.value > 1, "Value of the transaction should be greater than 1 wei");
+        require(donateTo != address(0), "User is not registered");
+        
+        uint amount = msg.value;
 
-        // Type conversion a little
-        address payable targetAddress = address(uint160(donateTo));
-
-        // Execute the transaction
-        targetAddress.transfer(msg.value);
+        balances[donateTo] += amount;
 
         // Update the donation amounts of both users i.e given and recieved
-        users[donateTo].donationsRecieved += msg.value;
-        users[msg.sender].donationsGiven += msg.value;
+        users[donateTo].donationsRecieved += amount;
+        users[msg.sender].donationsGiven += amount;
 
         // Emit the donation event
         emit donationDone(donateTo, msg.sender, msg.value);
@@ -81,20 +84,27 @@ contract WorkDone is Ownable {
         return status;
     }
     
+    /** @dev A function for registered users to withdraw their funds.
+      * @return status Whether the withdraw was successful.
+      */
+    function withdraw() public returns(bool success) {
+        require(balances[msg.sender] > 0, "You do not have sufficient balance ot withdraw");
+        uint amount = balances[msg.sender];
+        balances[msg.sender] = 0;
+        msg.sender.transfer(amount);
+        return true;
+    }
+
     /** @dev Update profile of a registered user
       * @param newUsername Username to be changed to.
       * @param newInfo Updated information about the user.
       * @param newEmail Updated email of the user.
       * @return status Whether the profile was updated.
       */
-    function updateProfile(string memory newUsername,
-        string memory newInfo,
-        string memory newEmail)
-        stopInEmergency
-        isRegistered(msg.sender)
-        public
-        returns (bool status){
-        
+    function updateProfile(string memory newUsername, string memory newInfo, string memory newEmail)
+                            public
+                            isRegistered(msg.sender)
+                        returns (bool status){
         // Update the user details after checking that the user exists
         users[msg.sender].userName = newUsername;
         users[msg.sender].info = newInfo;
@@ -115,10 +125,10 @@ contract WorkDone is Ownable {
     function createUser(string memory newUsername,
                         string memory newInfo,
                         string memory newEmail)
-                        stopInEmergency public returns (bool status) {
-        
+                        stopInEmergency
+                        public returns (bool status) {
         // Check that the user doesn't exist already 
-        require(!registered[msg.sender], 'User is already registered');
+        require(!registered[msg.sender], "User is already registered");
 
         // Create the user using the User struct
         users[msg.sender] = User({
@@ -146,7 +156,7 @@ contract WorkDone is Ownable {
       */
     function deleteUser(address target) public onlyOwner returns(bool status) {
         // Check if the user is registered
-        require(registered[target], 'User is not registered');
+        require(registered[target], "User is not registered");
 
         // Remove the user
         delete users[target];
@@ -161,7 +171,7 @@ contract WorkDone is Ownable {
     /** @dev A function to get username of a registered user
       * @return username Username of the queried user address.
       */
-    function getUserName() view public isRegistered(msg.sender) returns (string memory username) {
+    function getUserName() public view isRegistered(msg.sender) returns (string memory username) {
         // Return the username simply
         username = users[msg.sender].userName;
     }
@@ -173,6 +183,14 @@ contract WorkDone is Ownable {
         if(frozen) {
             frozen = false;
         } else frozen = true;
+        return true;
+    }
+
+    /** @dev A function to destroy the contract and transfer all funds to the owner
+      * @return status Whether the frozen status was successfully destroyed.
+      */
+    function kill() private onlyOwner returns(bool status) {
+        selfdestruct(msg.sender);
         return true;
     }
     

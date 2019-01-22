@@ -34,7 +34,7 @@ contract('WorkDone', accounts => {
     assert.equal(0, donationsGiven, 'Donation given by the created user is incorrect')
   });
 
-  // A test to donate some amount to a user, would test the donation workflow
+  // A test check whether a user is able to update their profile, would test the donation workflow
   it('should update the profile of a user', async () => {
     // Instance of the deployed contract
     const workDone = await WorkDone.deployed()
@@ -59,7 +59,7 @@ contract('WorkDone', accounts => {
 
 
   // A test to check if a user with an address exists or not, would be needed to check if a user is registered
-  it('should check if a user of an address exists or not', async () => {
+  it('should check if a user is registered or not', async () => {
     // Get instance of deployed contract
     const workDone = await WorkDone.deployed()
 
@@ -87,6 +87,8 @@ contract('WorkDone', accounts => {
       from: user1,
       value: 1000000
     })
+
+    // workDone.withdraw({ from: user2 });
 
     // Get the created user
     const userData1 = await workDone.users.call(user1) 
