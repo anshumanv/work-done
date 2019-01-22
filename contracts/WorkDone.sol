@@ -37,14 +37,14 @@ contract WorkDone is Ownable {
     // Function Modifiers
 
     // Modifier to check if an address is registered
-    modifier isRegistered(address _address) { require(registered[_address]); _; }
+    modifier isRegistered(address _address) {require(registered[_address]); _; }
 
     // Modifier to verify caller with a given address
-    modifier verifyCaller (address _address) { require (msg.sender == _address); _;}
+    modifier verifyCaller (address _address) {require (msg.sender == _address); _;}
 
     // Modifiers in emergency
-    modifier stopInEmergency { require(!frozen); _; }
-    modifier onlyInEmergency { require(frozen); _; }
+    modifier stopInEmergency {require(!frozen, "This action is not allowed as contract is frozen"); _; }
+    modifier onlyInEmergency {require(frozen, "This action is not allowed as this is only available in case of emergency"); _; }
 
 
     // Events
@@ -87,7 +87,7 @@ contract WorkDone is Ownable {
     /** @dev A function for registered users to withdraw their funds.
       * @return status Whether the withdraw was successful.
       */
-    function withdraw() public returns(bool success) {
+    function withdraw() public stopInEmergency returns(bool success) {
         require(balances[msg.sender] > 0, "You do not have sufficient balance ot withdraw");
         uint amount = balances[msg.sender];
         balances[msg.sender] = 0;

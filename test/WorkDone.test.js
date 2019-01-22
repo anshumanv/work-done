@@ -88,7 +88,7 @@ contract('WorkDone', accounts => {
       value: 1000000
     })
 
-    // workDone.withdraw({ from: user2 });
+    workDone.withdraw({ from: user2 });
 
     // Get the created user
     const userData1 = await workDone.users.call(user1) 
