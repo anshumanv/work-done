@@ -13,7 +13,7 @@
 ### Abstract
 Work Done is meant to be a decentralized platform for people to donate or support content creators on the internet.
 
-The concept is similar to how paypal.me or buymeacoffee pages work, the differnce is that the users can support these creators in the form of cryptocurrency.
+The concept is similar to how paypal.me or buymeacoffee pages work, the difference is that the users can support these creators in the form of cryptocurrency directly using their metamask wallets.
 
 #### The Problem
 
@@ -23,7 +23,7 @@ I've seen content creators post their wallet addresses like this and then people
 
 ### Benefits
 - Get statistics based on the donation recieved, top donors, donations given etc.
-- Showcase all your work in one place so users can seen.
+- Showcase all your work in one place so users can see and support accordingly.
 - Share a shortened link to your page for donations/support rather than copying address here and there.
 - A more user friendly way to support in cryptocurrency. 
 
@@ -35,7 +35,7 @@ I've seen content creators post their wallet addresses like this and then people
 
 ## Development
 
-##### Prerequisites
+#### Prerequisites
 
 This is my setup while developing this.
 - OS: macOS Mojave 10.14.2 18C54 x86_64
@@ -80,8 +80,12 @@ truffle test
 <img src="./assets/tests_report.png" align="center" width="600">
 
 
+### Initial setup
 
-
+- Goto [localhost:3000](http://localhost:3000) and login into metamask using the mnemonic obtained from ganache.
+- Allow connecting the app to web3
+- Owner's account will be already created and will be the one who initiated the contract.
+- You can then switch to a different metamask account and register/donate etc.
 
 * <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
