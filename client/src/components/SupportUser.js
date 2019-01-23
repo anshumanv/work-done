@@ -26,11 +26,15 @@ export default class SupportUser extends Component {
   getTxStatus = () => {
     const { stackId } = this.state;
     const { transactions, transactionStack } = this.props.drizzleState;
+    const { user, fetchProfile } = this.props;
 
     const txHash = transactionStack[stackId];
-
+    
     if(!txHash) return null;
-
+    console.log(transactions[txHash].status)
+    if(transactions[txHash].status == 'success') {
+      fetchProfile(user.userAddress)
+    }
     return `Transaction status: ${transactions[txHash].status}`; 
   }
 

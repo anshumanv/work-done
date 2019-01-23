@@ -21,7 +21,6 @@ export default class Profile extends Component {
 
   componentDidMount() {
     const { drizzle, drizzleState } = this.props;
-    const contract = drizzle.contracts.WorkDone;
     let profileAddress
     if(this.props.profile) {
       profileAddress = drizzleState.accounts[0]
@@ -29,6 +28,12 @@ export default class Profile extends Component {
       profileAddress = window.location.href.split('/')[4]
     }
     console.log(profileAddress)
+    this.fetchProfile(profileAddress)
+  }
+  
+  fetchProfile = (profileAddress) => {
+    const { drizzle, drizzleState } = this.props;
+    const contract = drizzle.contracts.WorkDone;
     try {
       contract.methods.users(profileAddress).call().then(res => {
         const { userName, userAddress, email, info, donationsGiven, donationsRecieved } = res;
@@ -60,7 +65,7 @@ export default class Profile extends Component {
       // window.location.pathname = '/register'
     }
   }
-  
+
   render() {
     const { user, loading, registeredUser } = this.state;
     const { drizzle, drizzleState } = this.props;
@@ -82,7 +87,7 @@ export default class Profile extends Component {
               <UserCard user={user} />
             </Grid.Column>
             <Grid.Column width={5}>
-              <SupportUser drizzle={drizzle} drizzleState={drizzleState} user={user} />
+              <SupportUser fetchProfile={this.fetchProfile} drizzle={drizzle} drizzleState={drizzleState} user={user} />
             </Grid.Column>
         </Grid>
       </div>

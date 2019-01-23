@@ -35,7 +35,7 @@ class UserForm extends Component {
     const { transactions, transactionStack } = this.props.drizzleState;
 
     const txHash = transactionStack[stackId];
-
+    console.log(transactions[txHash].status)
     if(!txHash) return null;
 
     return `Transaction status: ${transactions[txHash].status}`; 
