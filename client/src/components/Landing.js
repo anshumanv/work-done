@@ -218,7 +218,7 @@ const Landing = ({ drizzle, drizzleState }) => (
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
-            <Image bordered rounded size='large' src='../../public/icon128.png' />
+            <Image bordered rounded size='large' src='../icon256.png' />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
