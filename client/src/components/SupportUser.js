@@ -10,14 +10,13 @@ export default class SupportUser extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   sendTransaction = () => {
-    console.log('lel')
     const { drizzle, drizzleState, user: {userAddress } } = this.props;
     const { amount } = this.state;
     const contract = drizzle.contracts.WorkDone;
 
     const stackId = contract.methods.donate.cacheSend(userAddress, {
       from: drizzleState.accounts[0],
-      value: amount
+      value: amount * 1000000000000000000
     })
 
     this.setState({ stackId });

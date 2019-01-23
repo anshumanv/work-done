@@ -11,9 +11,9 @@
 
 
 ### Abstract
-Work Done is meant to be a decentralized platform for people to donate or support content creators on the internet.
+Work Done is meant to be a decentralized platform for people to donate or support content creators..
 
-The concept is similar to how paypal.me or buymeacoffee pages work, the difference is that the users can support these creators in the form of cryptocurrency directly using their metamask wallets.
+The concept is similar to how personalised donation pages work, the difference is that the users can support these creators in the form of cryptocurrency directly using their metamask wallets. Creators can just register their address using their metamask wallet, fill the basic information about them, what they do etc and then share the link to their profile with people who wish to support them.
 
 #### The Problem
 
@@ -28,7 +28,7 @@ I've seen content creators post their wallet addresses like this and then people
 - A more user friendly way to support in cryptocurrency. 
 
 
-### External Contracts Used
+#### External Contracts Used
 - OpenZeppelin SafeMath  
 - OpenZeppelin Ownable
 
@@ -65,6 +65,7 @@ truffle migrate
 ```
 
 ##### Setup the frontend
+The frontend is a React app that uses drizzle to interact with the contract.
 
 ```
 cd client
@@ -86,6 +87,14 @@ truffle test
 - Allow connecting the app to web3
 - Owner's account will be already created and will be the one who initiated the contract.
 - You can then switch to a different metamask account and register/donate etc.
+
+### Future work
+- Creators can feature their top supporters
+- Badges for interesting statistics about donation given or recieved.
+- Donation Leaderboards
+- A more friendly page link
+- Integrate drizzle-react
+- Improve UI/UX
 
 * <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 

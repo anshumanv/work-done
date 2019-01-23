@@ -3,4 +3,4 @@ node_modules
 yarn.lock
 .vscode
 .secret
-_DS_Store
+.DS_Store

@@ -86,9 +86,11 @@ export default class Profile extends Component {
             <Grid.Column width={11}>
               <UserCard user={user} />
             </Grid.Column>
-            <Grid.Column width={5}>
-              <SupportUser fetchProfile={this.fetchProfile} drizzle={drizzle} drizzleState={drizzleState} user={user} />
-            </Grid.Column>
+            {user.userAddress != drizzleState.accounts[0] && 
+              <Grid.Column width={5}>
+                <SupportUser fetchProfile={this.fetchProfile} drizzle={drizzle} drizzleState={drizzleState} user={user} />
+              </Grid.Column>
+            }
         </Grid>
       </div>
     )

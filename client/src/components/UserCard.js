@@ -3,7 +3,8 @@ import { Card, Icon, Image, Grid, Header } from 'semantic-ui-react'
 
 export default class UserCard extends Component {
   render() {
-    const { user } = this.props;
+    const { user, drizzle } = this.props;
+    console.log(drizzle)
     if( !user ) return <div>Loading...</div>
     return (
       <div>
@@ -22,7 +23,7 @@ export default class UserCard extends Component {
           </Header>
           <Header as='h3'>
             Address
-            <Header.Subheader>{ user.userAddress }</Header.Subheader>
+            <Header.Subheader>{ user.userAddress } ETH</Header.Subheader>
           </Header>
           <Header as='h3'>
             Email
@@ -30,11 +31,11 @@ export default class UserCard extends Component {
           </Header>
           <Header as='h3'>
             Support Recieved
-            <Header.Subheader>{ user.donationsRecieved }</Header.Subheader>
+            <Header.Subheader>{ parseFloat(user.donationsRecieved/1000000000000000000).toFixed(3) } ETH</Header.Subheader>
           </Header>
           <Header as='h3'>
             Support Given
-            <Header.Subheader>{ user.donationsGiven }</Header.Subheader>
+            <Header.Subheader>{ parseFloat(user.donationsGiven/1000000000000000000).toFixed(3) } ETH</Header.Subheader>
           </Header>
           </Grid.Column>
         </Grid>
