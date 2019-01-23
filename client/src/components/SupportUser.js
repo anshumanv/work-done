@@ -16,7 +16,7 @@ export default class SupportUser extends Component {
 
     const stackId = contract.methods.donate.cacheSend(userAddress, {
       from: drizzleState.accounts[0],
-      value: amount * 1000000000000000000
+      value: amount * 100000000000000000
     })
 
     this.setState({ stackId });
@@ -46,7 +46,7 @@ export default class SupportUser extends Component {
           <Grid.Column>
         <Header as='h3'>
           Support { user.userName } 🎉
-          <Header.Subheader>Please pick the amount you wanna support with and confirm transaction! 💸</Header.Subheader>
+          <Header.Subheader>Please pick the amount you wanna support (Amount is multiplied by 0.1 eth) with and confirm transaction! 💸</Header.Subheader>
         </Header>
         <Form onSubmit={this.sendTransaction}>
           <Form.Field required>
