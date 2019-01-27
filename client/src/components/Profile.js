@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimmer, Loader, Grid } from 'semantic-ui-react'
+import { Dimmer, Loader, Grid, Button } from 'semantic-ui-react'
 import UserCard from './UserCard'
 import UserForm from './UserForm'
 import SupportUser from './SupportUser'
@@ -66,6 +66,14 @@ export default class Profile extends Component {
     }
   }
 
+  handleWithdraw = () => {
+    const { drizzle, drizzleState } = this.props;
+    const contract = drizzle.contracts.WorkDone;
+    contract.methods.withdraw().call().then(res => {
+      console.log(res);
+    })
+  }
+
   render() {
     const { user, loading, registeredUser } = this.state;
     const { drizzle, drizzleState } = this.props;
@@ -85,6 +93,9 @@ export default class Profile extends Component {
         <Grid centered style={profileRoot} className="profile-root">
             <Grid.Column width={11}>
               <UserCard user={user} />
+              {user.userAddress == drizzleState.accounts[0] && 
+                <Button content='💲 Withdraw' onClick={this.handleWithdraw} />
+              }
             </Grid.Column>
             {user.userAddress != drizzleState.accounts[0] && 
               <Grid.Column width={5}>

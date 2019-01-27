@@ -54,7 +54,7 @@ const HomepageHeading = ({ mobile }) => (
         marginTop: mobile ? '0.5em' : '1.5em',
       }}
     />
-    <Button primary size='huge'>
+    <Button as='a' href='/profile' primary size='huge'>
       Go!
       <Icon name='right arrow' />
     </Button>
@@ -258,7 +258,7 @@ const Landing = ({ drizzle, drizzleState }) => (
         <p style={{ fontSize: '1.33em' }}>
           Get things to work, share profile link, execute transactions
         </p>
-        <Button as='a' size='large'>
+        <Button as='a' href='/about' size='large'>
           Read More
         </Button>
 
@@ -277,7 +277,7 @@ const Landing = ({ drizzle, drizzleState }) => (
         <p style={{ fontSize: '1.33em' }}>
           You can create your WD page and add it's links on your projects which people can use to support you.
         </p>
-        <Button as='a' size='large'>
+        <Button as='a' href='/register' size='large'>
           Yes! Create my page
         </Button>
       </Container>
