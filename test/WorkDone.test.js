@@ -2,7 +2,6 @@ const WorkDone = artifacts.require("./WorkDone.sol")
 
 
 contract('WorkDone', accounts => {
-  
   const owner = accounts[0]
   const user1 = accounts[1]
   const user2 = accounts[2]
