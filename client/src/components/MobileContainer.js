@@ -52,7 +52,7 @@ export default class MobileContainer extends Component {
           <Menu.Item as={ Link } to='/' active>
             Home
           </Menu.Item>
-          <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+          <Menu.Item as={ Link } to="/register">Register</Menu.Item>
           <Menu.Item as={ Link } to='/about'>About</Menu.Item>
         </Sidebar>
 

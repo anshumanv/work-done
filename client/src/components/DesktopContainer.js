@@ -58,7 +58,7 @@ export default class DesktopContainer extends Component {
                 <Menu.Item as={ Link } to='/' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+                <Menu.Item as={ Link } to="/register">Register</Menu.Item>
                 <Menu.Item as={ Link } to='/about'>About</Menu.Item>
                 <Menu.Item position='right'>
                   <Button as='a' href={`/u/${address}`} inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>

@@ -103,7 +103,7 @@ class DesktopLanding extends Component {
                 <Menu.Item as={ Link } to='/' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+                <Menu.Item as={ Link } to="/register">Register</Menu.Item>
                 <Menu.Item as={ Link } to='/about'>About</Menu.Item>
                 <Menu.Item position='right'>
                   <Button as={ Link } to={`/u/${address}`} inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
@@ -156,7 +156,7 @@ class MobileLanding extends Component {
           <Menu.Item as={ Link } to='/' active>
             Home
           </Menu.Item>
-          <Menu.Item as={ Link } to="/register">Your Page</Menu.Item>
+          <Menu.Item as={ Link } to="/register">Register</Menu.Item>
           <Menu.Item as={ Link } to='/about'>About</Menu.Item>
         </Sidebar>
 
@@ -290,10 +290,10 @@ const Landing = ({ drizzle, drizzleState }) => (
             <Grid.Column width={3}>
               <Header inverted as='h4' content='About' />
               <List link inverted>
-                <List.Item as='a'>How it works?</List.Item>
-                <List.Item as='a'>About</List.Item>
-                <List.Item as='a'>Create your page</List.Item>
-                <List.Item as='a'>Report an issue</List.Item>
+                <List.Item as='a' href="/about">How it works?</List.Item>
+                <List.Item as='a' href="/about">About</List.Item>
+                <List.Item as='a' href="/register">Create your page</List.Item>
+                <List.Item as='a' href="https://github.com/dev-bootcamp-2019/final-project-anshumanv">Report an issue</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={7}>

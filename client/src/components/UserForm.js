@@ -76,8 +76,8 @@ class UserForm extends Component {
           />
           <Form.Button content='Submit' />
         </Form>
-        <strong>onChange:</strong>
-        <pre>{JSON.stringify({ name, email, info, userName }, null, 2)}</pre>
+        {/* <strong>onChange:</strong>
+        <pre>{JSON.stringify({ name, email, info, userName }, null, 2)}</pre> */}
         <div>{this.getTxStatus()}</div>
       </div>
     )
