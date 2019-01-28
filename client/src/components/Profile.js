@@ -69,8 +69,8 @@ export default class Profile extends Component {
   handleWithdraw = () => {
     const { drizzle, drizzleState } = this.props;
     const contract = drizzle.contracts.WorkDone;
-    contract.methods.withdraw().call().then(res => {
-      console.log(res);
+    contract.methods.withdraw().send().then(res => {
+      alert('Withdraw Successful!')
     })
   }
 
