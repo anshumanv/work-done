@@ -25,7 +25,7 @@
 // Uncomment the below lines if you're using a network other than localhost
 
 // const HDWallet = require('truffle-hdwallet-provider');
-// const infuraKey = "100f035531ba4ad89ef2ce47d0311ed1";
+// const infuraKey = "Your Key here";
 
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
