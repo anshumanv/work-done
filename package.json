@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-contracts": "sol-merger \"./contracts/*.sol\" ./build"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "dependencies": {
     "openzeppelin-solidity": "2.1.2",
     "truffle-hdwallet-provider": "^1.0.2"
+  },
+  "devDependencies": {
+    "sol-merger": "^0.1.3"
   }
 }
